@@ -11,21 +11,21 @@
 
 <div class="container" style="width:90% ;margin-right:auto" ;margin-left:auto>
 
-
+   
     @*<p>@Model.Questions[0].QuestionContent</p>
         <p>@Model.Questions[1].QuestionContent</p>
         <p>@Model.Questions[2].QuestionContent</p>
         <p>@Model.Questions[3].QuestionContent</p>*@
 
 
-    <div class="mb-20 w-100 " style="margin-bottom:50px"><p class="text-center h4">@Model.Exam.ExamTitle</p></div>
-
-
-    <div class="textarea row  p-4 " style="width:100%;max-height:300px;overflow-y:scroll ;margin-bottom:50px">@Model.Exam.ExamContent</div>
+    <div class="mb-20 w-100 " style="margin-bottom:50px"><p class="text-center h4">@Html.Raw(Model.Exam.ExamTitle)</p></div>
+    
+   
+    <div class="textarea row  p-4 " style="width:100%;max-height:300px;overflow-y:scroll ;margin-bottom:50px">@Html.Raw(Model.Exam.ExamContent)</div>
 
 
     <div class="col-md-6">
-
+       
     </div>
 
     <div class="row">
@@ -34,13 +34,14 @@
 
         @foreach (var item in Model.Questions)
         {
-
-            <div class="card col-md-6">
+      
+            <div class="card col-md-5 mr-5">
                 <p style="background-color:gray">@item.QuestionContent</p>
                 <div class="card-body col-md-12">
 
                     @foreach (var item2 in item.Options)
                     {
+                  
 
                         <div class="row mb-2 col-md-12">
                             <div class="col-md-12">
@@ -73,9 +74,10 @@
 
 
             </div>
-
+            
             nameKoy++;
-            <br />
+            <br />   <br />
+            
         }
 
     </div>

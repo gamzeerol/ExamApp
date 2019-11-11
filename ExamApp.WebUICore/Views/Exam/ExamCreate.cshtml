@@ -34,10 +34,10 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <select onchange="selectedChanged()" name="Title" id="headers" class="form-control col-md-12 col-xs-12" required="required">
-                            <option value="" disabled selected>Choose</option>
+                            <option value="" disabled selected>Choose Title</option>
                             @for (int i = 0; i < 5; i++)
                             {
-                                <option value="@(i + 1)">@ViewBag.Titles[i]</option>
+                                <option value="@(i + 1)">@Html.Raw(ViewBag.Titles[i])</option>
                             }
                         </select>
                     </div>
@@ -53,15 +53,17 @@
                         @Html.TextBoxFor(m => m.Questions[i].QuestionContent, new { @class = "form-control" })
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     </div>
-
+                    
                     <div class="row">
 
                         @for (int j = 0; j < 4; j++)
                         {
 
-                            <div class="col-md-6">
-                                @Html.TextBoxFor(m => m.Questions[i].Options[j].selection, new { @class = "form-control" })
-                            </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.Questions[i].Options[j].selection, new { @class = "form-control" })
+
+                          
+                        </div>
                             @if (j % 2 != 0)
                             {
                                 <br />

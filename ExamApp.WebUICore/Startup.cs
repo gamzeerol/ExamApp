@@ -24,7 +24,6 @@ namespace ExamApp.WebUICore
             services.AddScoped<IExamService, ExamManager>();
             services.AddScoped<IExamDal, EfExamDal>();
 
-
             services.AddScoped<IQuestionService, QuestionManager>();
             services.AddScoped<IQuestionDal, EfQuestionDal>();
 
@@ -33,7 +32,7 @@ namespace ExamApp.WebUICore
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
 
-
+                  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,15 +41,11 @@ namespace ExamApp.WebUICore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
+                SeedDatabase.Seed();
             }
-
             app.UseStaticFiles(); //wwwroot dışarıya açıldı
             app.CustomStaticFiles(); //Yazdığım middleware'i ekledim. node_modules klasörü dışarıya açıldı.
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Account}/{action=Login}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
