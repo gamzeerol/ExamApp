@@ -1,0 +1,116 @@
+﻿@model ExamApp.WebUICore.ViewModels.ExamCreateModel
+@{
+    ViewData["Title"] = "ExamCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <style>
+
+        .icerik {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bicim {
+            width: 100%;
+            max-height: 300px;
+            overflow: scroll;
+            border: 1px solid gray;
+            height: 250px;
+        }
+    </style>
+
+    List<SelectListItem> TEST = new List<SelectListItem>();
+    TEST.Add(new SelectListItem { Text = "A", Value = "A" });
+    TEST.Add(new SelectListItem { Text = "B", Value = "B" });
+    TEST.Add(new SelectListItem { Text = "C", Value = "C" });
+    TEST.Add(new SelectListItem { Text = "D", Value = "D" });
+}
+
+<div class="">
+    <div class="x_panel icerik">
+        <div class="x_content">
+            <form asp-action="CreateExam" asp-controller="Exam" method="post" id="myForm">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <select onchange="selectedChanged()" name="Title" id="headers" class="form-control col-md-12 col-xs-12" required="required">
+                            <option value="" disabled selected>Choose</option>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <option value="@(i + 1)">@ViewBag.Titles[i]</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.TextAreaFor(m => m.Content, new { @id = "text", @class = "bicim" })
+                </div>
+
+                @for (int i = 0; i < 4; i++)
+                {
+                    <div class="form-group">
+                        <label for="inputAddress2">Soru @(i + 1)</label>
+                        @Html.TextBoxFor(m => m.Questions[i].QuestionContent, new { @class = "form-control" })
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    </div>
+
+                    <div class="row">
+
+                        @for (int j = 0; j < 4; j++)
+                        {
+
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.Questions[i].Options[j].selection, new { @class = "form-control" })
+                            </div>
+                            @if (j % 2 != 0)
+                            {
+                                <br />
+                                <br />
+                                <br />
+                            }
+                        }
+                    </div>
+
+                    <div class="form-group col-md-6" style="margin-left:auto;margin-right:auto">
+                        @Html.DropDownListFor(x => x.Questions[i].Answer, (IEnumerable<SelectListItem>)TEST, new { @class = "form-control" })
+                    </div>
+                    <br />
+                }
+
+                <div class="row">
+                    <button type="submit" class="col-md-3 btn btn-success ml-auto mr-auto ">Kaydet</button>
+                </div>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+<script>
+
+        function selectedChanged() {
+            var titleId = document.getElementById("headers").value;
+            var text = document.getElementById("text")
+
+            $.ajax({
+                url: '@Url.Action("GetContent","Exam")',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: titleId },
+                success: function (gelenVeri) {
+                    console.log(gelenVeri);
+                    document.getElementById("text").innerHTML = gelenVeri;
+                },
+                error: function (hata) {
+
+                }
+
+            })
+    };
+
+
+
+
+
+</script>
+

@@ -1,0 +1,137 @@
+﻿@model ExamApp.WebUICore.ViewModels.GoExamModel
+
+@{
+    ViewData["Title"] = "ExamGo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int nameKoy = 0;
+
+}
+
+
+<div class="container" style="width:90% ;margin-right:auto" ;margin-left:auto>
+
+
+    @*<p>@Model.Questions[0].QuestionContent</p>
+        <p>@Model.Questions[1].QuestionContent</p>
+        <p>@Model.Questions[2].QuestionContent</p>
+        <p>@Model.Questions[3].QuestionContent</p>*@
+
+
+    <div class="mb-20 w-100 " style="margin-bottom:50px"><p class="text-center h4">@Model.Exam.ExamTitle</p></div>
+
+
+    <div class="textarea row  p-4 " style="width:100%;max-height:300px;overflow-y:scroll ;margin-bottom:50px">@Model.Exam.ExamContent</div>
+
+
+    <div class="col-md-6">
+
+    </div>
+
+    <div class="row">
+
+
+
+        @foreach (var item in Model.Questions)
+        {
+
+            <div class="card col-md-6">
+                <p style="background-color:gray">@item.QuestionContent</p>
+                <div class="card-body col-md-12">
+
+                    @foreach (var item2 in item.Options)
+                    {
+
+                        <div class="row mb-2 col-md-12">
+                            <div class="col-md-12">
+
+                                <div id="radio" class="col-xs-12">
+
+
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+
+                                                <input type="radio" id="radio2" value="@item2.IsCorrect" name="@nameKoy" class=" ">
+                                            </div>
+                                        </div>
+                                        <label for="radio2" class="form-control test-option ">@item2.selection</label>
+                                    </div>
+                                    <br>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+
+
+                </div>
+
+
+            </div>
+
+            nameKoy++;
+            <br />
+        }
+
+    </div>
+</div>
+<div class="row"> <button type="button" class="btn btn-primary ml-auto mr-auto" onclick="bitir()">Sınavı Bitir</button>  </div>
+
+
+
+
+<script>
+    function bitir() {
+      Temizle()
+        for (var i = 0; i < 4; i++) {
+
+            var secenekler = document.getElementsByName(i.toString());
+            for (var j = 0; j < secenekler.length; j++) {
+                {
+
+                    if (secenekler[j].checked) {
+
+
+                        if (secenekler[j].value == "true") {
+                            console.log("dohru cevap")
+                            secenekler[j].parentElement.style.backgroundColor = "green";
+                        }
+                        else {
+                            secenekler[j].parentElement.style.backgroundColor = "red";
+
+                        }
+                    }
+
+
+
+                }
+
+            }
+
+
+        }
+
+    }
+    
+    function Temizle() {
+
+            for (var i = 0; i < 4; i++) {
+                 var secenekler = document.getElementsByName(i.toString());
+                for (var j = 0; j < secenekler.length; j++) {
+                    {
+                         secenekler[j].parentElement.style.backgroundColor = "white";
+                   
+                     }
+
+             }
+        }
+
+            }
+       
+
+</script>
