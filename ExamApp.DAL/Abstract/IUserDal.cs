@@ -5,8 +5,9 @@ using System.Text;
 
 namespace ExamApp.DAL.Abstract
 {
-    public interface IUserDal
+    public interface IUserDal:IRepository<User>
     {
-        User HasUser(string UserName ,string Password);
+       
+       
     }
 }

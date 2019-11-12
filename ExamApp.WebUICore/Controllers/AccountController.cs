@@ -7,6 +7,7 @@ using ExamApp.BLL.Abstract;
 using ExamApp.WebUICore.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -19,18 +20,44 @@ namespace ExamApp.WebUICore.Controllers
         {
             _userService = userService;
         }
-        public IActionResult Login()
+
+      
+        
+        public IActionResult Index()
         {
-            return View(new LoginModel());
+            return View();
         }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginModel loginModel, string returnUrl = null)
+        
+        public IActionResult Login()
         {
             return View();
         }
 
+        [Route("login")]
+        [HttpPost]
+        public IActionResult Login(LoginModel loginModel)
+        {
+            var user = _userService.GetAll().Where(u => u.UserName == loginModel.UserName && u.Password == loginModel.Password).SingleOrDefault();
+            if (user!=null)
+            {
+                HttpContext.Session.SetString("username", loginModel.UserName);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.error = "Invalid Account";
+                return View(loginModel);
+            }
+           
+        }
+
+        [Route("logout")]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("username");
+            return RedirectToAction("Index");
+        }
 
     }
 }

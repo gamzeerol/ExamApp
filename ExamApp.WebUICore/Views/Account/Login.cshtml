@@ -37,7 +37,8 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
-                    <form action="/Account/Login" method="post">
+                    @ViewBag.error
+                    <form asp-controller="Account" asp-action="Login" method="post">
                         <h1>Giriş Formu</h1>
                         <div>
                             @ViewBag.LoginError

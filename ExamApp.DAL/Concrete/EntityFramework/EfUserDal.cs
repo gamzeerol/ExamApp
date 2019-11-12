@@ -7,17 +7,8 @@ using System.Text;
 
 namespace ExamApp.DAL.Concrete.EntityFramework
 {
-    public class EfUserDal : IUserDal
+    public class EfUserDal : EfCoreGenericRepository<User,ExamAppDbContext>,IUserDal
     {
-        User u;
-        public User HasUser(string UserName, string Password)
-        {
-            using (var context=new ExamAppDbContext())
-            {
-              u= context.Set<User>().Where(u => u.UserName == UserName && u.Password == Password).SingleOrDefault();
-            }
-            return u;
-
-        }
+        
     }
 }
