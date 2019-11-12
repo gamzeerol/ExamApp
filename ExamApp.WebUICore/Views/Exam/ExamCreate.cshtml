@@ -48,28 +48,33 @@
 
                 @for (int i = 0; i < 4; i++)
                 {
-                    <div class="form-group">
-                        <label for="inputAddress2">Soru @(i + 1)</label>
-                        @Html.TextBoxFor(m => m.Questions[i].QuestionContent, new { @class = "form-control" })
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    </div>
-                    
-                    <div class="row">
 
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Soru @(i + 1) </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Questions[i].QuestionContent, new { @class = "form-control" })
+                    </div>
+
+                    <br />
+
+                    <div class="row">
                         @for (int j = 0; j < 4; j++)
                         {
-
-                        <div class="col-md-6">
-                            @Html.TextBoxFor(m => m.Questions[i].Options[j].selection, new { @class = "form-control" })
-
-                          
-                        </div>
-                            @if (j % 2 != 0)
-                            {
-                                <br />
-                                <br />
-                                <br />
-                            }
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">@TEST[j].Text</span>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.Questions[i].Options[j].selection, new { @class = "form-control" })
+                                </div>
+                            </div>
+                                @if (j % 2 != 0)
+                                {
+                                    <br />
+                                    <br />
+                                    <br />
+                                }
                         }
                     </div>
 
@@ -80,7 +85,7 @@
                 }
 
                 <div class="row">
-                    <button type="submit" class="col-md-3 btn btn-success ml-auto mr-auto ">Kaydet</button>
+                    <button type="submit" class="col-md-3 btn btn-success ml-auto mr-auto ">Sınavı Kaydet</button>
                 </div>
             </form>
             <br>
